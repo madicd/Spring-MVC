@@ -3,6 +3,7 @@ package spitter.web;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import spitter.Spittle;
@@ -31,5 +32,11 @@ public class SpittleController {
         final List<Spittle> spittles = spittleRepository.findSpittles(maxId, count);
         model.addAttribute("spittleList", spittles);
         return "spittles";
+    }
+
+    @RequestMapping(value = "/{spittleId}", method = GET)
+    public String spittle(@PathVariable long spittleId, Model model) {
+        model.addAttribute("spittle", spittleRepository.findOne(spittleId));
+        return "spittle";
     }
 }

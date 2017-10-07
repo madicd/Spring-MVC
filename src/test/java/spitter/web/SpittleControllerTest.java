@@ -58,6 +58,28 @@ public class SpittleControllerTest {
 
     }
 
+    @Test
+    public void givenIdShouldShowSpittle() throws Exception {
+        final Spittle expectedSpittle = new Spittle("Hello everyone!", new Date());
+        final long spittleId = 1234L;
+        expectedSpittle.setId(spittleId);
+
+        final SpittleRepository mockRepository = mock(SpittleRepository.class);
+        when(mockRepository.findOne(spittleId))
+                .thenReturn(expectedSpittle);
+
+        final SpittleController controller = new SpittleController(mockRepository);
+        final MockMvc mockMvc = standaloneSetup(controller).build();
+
+        final String urlTemplate = String.format("/spittles/%s", spittleId);
+        mockMvc.perform(get(urlTemplate))
+                .andExpect(view().name("spittle"))
+                .andExpect(model().attributeExists("spittle"))
+                .andExpect(model().attribute("spittle", expectedSpittle));
+
+    }
+
+
     private List<Spittle> createSpittleList(int listSize) {
         return IntStream.range(0, listSize)
                 .mapToObj(index -> new Spittle("Spittle " + index, new Date()))

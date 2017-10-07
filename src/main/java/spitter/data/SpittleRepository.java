@@ -8,4 +8,6 @@ import java.util.List;
 @Repository
 public interface SpittleRepository {
     List<Spittle> findSpittles(long maxId, int count);
+
+    Spittle findOne(long id);
 }
