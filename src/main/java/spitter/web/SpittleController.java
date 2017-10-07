@@ -16,6 +16,7 @@ import static org.springframework.web.bind.annotation.RequestMethod.GET;
 @RequestMapping("/spittles")
 public class SpittleController {
 
+    private static final String MAX_LONG_AS_STRING = "" + Long.MAX_VALUE;
     private SpittleRepository spittleRepository;
 
     @Autowired
@@ -24,7 +25,7 @@ public class SpittleController {
     }
 
     @RequestMapping(method = GET)
-    public String spittles(@RequestParam(value = "maxId", defaultValue = "" + Long.MAX_VALUE) long maxId,
+    public String spittles(@RequestParam(value = "maxId", defaultValue = MAX_LONG_AS_STRING) long maxId,
                            @RequestParam(value = "count", defaultValue = "20") int count,
                            Model model) {
         final List<Spittle> spittles = spittleRepository.findSpittles(maxId, count);
