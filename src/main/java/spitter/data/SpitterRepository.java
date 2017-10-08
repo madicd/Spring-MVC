@@ -5,5 +5,7 @@ import spitter.Spitter;
 
 @Repository
 public interface SpitterRepository {
-    Spitter save(Spitter spitter);
+    void save(Spitter spitter);
+
+    Spitter findByUsername(String username);
 }
