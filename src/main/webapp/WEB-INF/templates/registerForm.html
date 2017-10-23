@@ -1,0 +1,27 @@
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Spitter</title>
+    <link rel="stylesheet" type="text/css" th:href="@{/resources/style.css}"/>
+</head>
+<body>
+<form method="POST" th:object="${spitter}">
+    <!--Display all errors-->
+    <div class="errors" th:if="${#fields.hasErrors('*')}">
+        <ul>
+            <li th:each="err : ${#fields.errors('*')}" th:text="${err}">Input is invalid.</li>
+        </ul>
+    </div>
+    <!--Inputs-->
+    <label th:class="${#fields.hasErrors('firstName')}? 'error'">First name:</label><input type="text"
+                                                                                           th:field="*{firstName}"><br/>
+    <label th:class="${#fields.hasErrors('lastName')}? 'error'">Last name:</label><input type="text"
+                                                                                         th:field="*{lastName}"><br/>
+    <label th:class="${#fields.hasErrors('username')}? 'error'">Username:</label><input type="text"
+                                                                                        th:field="*{username}"><br/>
+    <label th:class="${#fields.hasErrors('password')}? 'error'">Password:</label><input type="password"
+                                                                                        th:field="*{password}"><br/>
+    <input type="submit" value="Register">
+</form>
+</body>
+</html>
